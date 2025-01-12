@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -65,7 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                         foregroundColor: Colors.white),
-                    onPressed: () {
+                    onPressed: () async {
 
                       String name =  nameController.text;
                       String email = emailController.text;
@@ -74,19 +75,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       // Front End Validation
 
-                      if( name.isEmpty){
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please provide name')));
-
-                      }
-
-                      if( pass.length < 6){
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Password must be at least 6 characters')));
-                        return;
-                      }
-
+                      // if( name.isEmpty){
+                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please provide name')));
+                      //
+                      // }
+                      //
+                      // if( pass.length < 6){
+                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Password must be at least 6 characters')));
+                      //   return;
+                      // }
+                      //
+                      // if( pass != confirmPass){
+                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Password does not match')));
+                      //   return;
+                      // }
                       // code
 
                       // firebase auth
+
+                      FirebaseAuth auth = FirebaseAuth.instance;
+
+                      UserCredential userCredentials = await auth.createUserWithEmailAndPassword(email: email, password: pass);
+
 
                     },
                     child: const Text('SIGN UP')),
