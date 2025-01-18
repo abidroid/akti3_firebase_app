@@ -1,6 +1,7 @@
 import 'package:akti3_firebase_app/screens/add_task_screen.dart';
 import 'package:akti3_firebase_app/screens/login_screen.dart';
 import 'package:akti3_firebase_app/screens/profile_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -37,6 +38,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           }, icon: Icon(Icons.person)),
 
           IconButton(onPressed: (){
+
+            FirebaseAuth.instance.signOut();
 
             Navigator.of(context).push(MaterialPageRoute(builder: (context){
               return LoginScreen();

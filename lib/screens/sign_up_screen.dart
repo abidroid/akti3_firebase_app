@@ -38,7 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       border: OutlineInputBorder()),
                 ),
                 TextField(
-                  controller:  emailController,
+                  controller: emailController,
                   decoration: InputDecoration(
                       hintText: 'Email',
                       labelText: 'Email',
@@ -53,7 +53,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       prefixIcon: Icon(Icons.lock),
                       border: OutlineInputBorder()),
                 ),
-
                 TextField(
                   controller: confirmController,
                   decoration: InputDecoration(
@@ -67,8 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         backgroundColor: Colors.green,
                         foregroundColor: Colors.white),
                     onPressed: () async {
-
-                      String name =  nameController.text;
+                      String name = nameController.text;
                       String email = emailController.text;
                       String pass = passController.text;
                       String confirmPass = confirmController.text;
@@ -93,11 +91,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       // firebase auth
 
-                      FirebaseAuth auth = FirebaseAuth.instance;
+                      try {
+                        FirebaseAuth auth = FirebaseAuth.instance;
 
-                      UserCredential userCredentials = await auth.createUserWithEmailAndPassword(email: email, password: pass);
+                        UserCredential userCredentials =
+                            await auth.createUserWithEmailAndPassword(
+                          email: email,
+                          password: pass,
+                        );
+
+                        if( userCredentials.user != null ){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Account Created"))
+                          );
+
+                          Navigator.of(context).pop();
+                        }
+
+                      } on FirebaseAuthException catch (e) {
 
 
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(e.toString()))
+                        );
+                      }
                     },
                     child: const Text('SIGN UP')),
               ],
