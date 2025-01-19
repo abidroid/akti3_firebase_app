@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -101,6 +102,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         );
 
                         if( userCredentials.user != null ){
+
+                          // save user data into firebase database
+
+                          FirebaseFirestore db = FirebaseFirestore.instance;
+
+                          await db.collection('users')
+                          .doc(userCredentials.user!.uid)
+                          .set( {
+                            'uid': userCredentials.user!.uid,
+                            'name': name,
+                            'email': email,
+                            'photo': null,
+                            'dateCreated': DateTime.now().millisecondsSinceEpoch,
+                          });
+
+
+
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("Account Created"))
                           );

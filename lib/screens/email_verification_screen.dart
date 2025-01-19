@@ -53,7 +53,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
             Text('An email has been sent to your email address'),
             SpinKitDualRing(color: Colors.green),
 
-            ElevatedButton(onPressed: (){}, child: Text('Resend Email')),
+            ElevatedButton(onPressed: (){
+              FirebaseAuth.instance.currentUser!.sendEmailVerification();
+
+            }, child: Text('Resend Email')),
 
           ],
         ),
@@ -61,3 +64,11 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     );
   }
 }
+
+/*
+  taskNmae:
+  dt:
+  taskId:
+  uid:
+
+ */
