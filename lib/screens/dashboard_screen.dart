@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 
+import '../utitlity/functions.dart';
+
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
@@ -150,12 +152,5 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  String getHumanReadableDate(int dt) {
-    DateFormat dateFormat = DateFormat('dd/MM/yy hh:mm a');
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(dt);
 
-    String humanDate = dateFormat.format(dateTime);
-
-    return humanDate;
-  }
 }
